@@ -18,7 +18,8 @@ export const ModulesProvider = ({ children }) => {
         console.log('Loading modules...');
 
         // Загружаем модули с сервера
-        const response = await fetch('http://localhost:5000/api/modules');
+        const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+const response = await fetch(`${API_BASE}/modules`);
         const modulesData = await response.json();
 
         console.log('Modules loaded from API:', modulesData);
@@ -310,4 +311,5 @@ export const ModulesProvider = ({ children }) => {
       {children}
     </ModulesContext.Provider>
   );
+
 };
