@@ -4,6 +4,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
 import { ModulesContext } from "../context/ModulesContext";
+const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
 import {
   BookOpen,
   CheckCircle,
@@ -114,7 +115,7 @@ const Lesson = () => {
 
       for (const material of lesson.materials) {
         try {
-          const response = await fetch(`http://localhost:5000/api/check-file/${material.file}`);
+          const response = await fetch(`${API_BASE}/check-file/${material.file}`);
           const data = await response.json();
 
           if (data.exists) {
@@ -163,9 +164,8 @@ const Lesson = () => {
     try {
       setDownloading(material.file);
 
-      // Формируем URL
-      const fileUrl = `http://localhost:5000/materials/${material.file}`;
-
+     const baseUrl = import.meta.env.VITE_API_URL?.replace('/api', '') || 'http://localhost:5000';
+const fileUrl = `${baseUrl}/materials/${material.file}`;
       // Для PDF открываем в новой вкладке
       if (material.type === 'pdf') {
         window.open(fileUrl + '#view=FitH', '_blank');
@@ -607,5 +607,6 @@ const Lesson = () => {
     </div>
   );
 };
+
 
 export default Lesson;
