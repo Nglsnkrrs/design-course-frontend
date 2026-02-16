@@ -1,17 +1,10 @@
 // src/services/api.js
 import axios from "axios";
 
-// Определяем базовый URL в зависимости от окружения
-const getBaseUrl = () => {
-  // В продакшене на Vercel используем переменную окружения
-  if (import.meta.env.PROD) {
-    return import.meta.env.VITE_API_URL;
-  }
-  // В разработке
-  return 'http://localhost:5000/api';
-};
+// Используем переменную окружения, если она есть, иначе локальный адрес
+const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
 
-const API_BASE = getBaseUrl();
+console.log('API Base URL:', API_BASE); // Добавьте эту строку для отладки
 
 export const api = (token) => {
   const instance = axios.create({
@@ -42,4 +35,3 @@ export const loginUser = (data) => axios.post(`${API_BASE}/auth/login`, data);
 export const getUserProgress = (token) => api(token).get('/progress');
 export const completeLesson = (token, lessonId) => api(token).post('/progress/complete', { lessonId });
 export const initUserProgress = (token) => api(token).post('/progress/init');
-
