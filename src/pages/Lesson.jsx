@@ -4,7 +4,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
 import { ModulesContext } from "../context/ModulesContext";
-const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+
 import {
   BookOpen,
   CheckCircle,
@@ -29,6 +29,8 @@ import {
   FileSpreadsheet,
   FileImage
 } from "lucide-react";
+
+const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
 
 const Lesson = () => {
   const { id } = useParams();
@@ -610,3 +612,4 @@ const fileUrl = `${baseUrl}/materials/${material.file}`;
 
 
 export default Lesson;
+
